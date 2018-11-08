@@ -1,66 +1,62 @@
-# CHIP
-Instructions, configs, and dedicated scribblers of the CHIP analysis
+# FAST for the CMS HEP Tutorial
+This project demonstrates how to use the FAST approach to implement the [CMS HEP analysis tutorial from 2012](http://ippog.org/resources/2012/cms-hep-tutorial)
 
 ## Instructions to set things up:
-### Pre-requisites:
+### On Lxplus or most HEP servers:
 You need a relatively recent version of python and pip to use this project, ie.
-python > 2.7.13 and pip > 8.  On most laptops that might already be the case,
-but on CERN's lxplus, Bristol's Soolin, and Imperial lx machines, you should use the script contained in this repository to set these up:
+around python > 2.7.13 and pip > 8.  On most laptops that might already be the case,
+but on CERN's lxplus, Bristol's Soolin, and Imperial lx machines, etc, you should use the script contained in this repository to set these up:
 ```
-source CHIP/analysis/setup_lcg.sh
+source setup_lcg.sh
 ```
-You'll have to run that every time you log in to lxplus since it sets up the python version.
-Unlike previous codes however it doesn't do anything with code specific to FAST.
+This will setup the main dependencies (like python, xrootd, etc) using versions which have been compiled and posted to CVMFS.
+You'll have to run that every time you log in since it sets up the python version.
+
+If you work on a laptop or any system where the default python and pip versions are recent, then you shouldnt need to do this, just skip to the next section.
 
 ### Installing
 ```
-# Step 1: Make a directory for this work:
-mkdir -p CHIP && cd CHIP
+# Step 1: Clone this repository
+git clone ssh://git@gitlab.cern.ch:7999/fast-hep/public/fast_cms_public_tutorial.git
+cd fast_cms_public_tutorial
 
-# Step 2: Clone this repository
-git clone ssh://git@gitlab.cern.ch:7999/cms-chip/chip.git analysis
+# Step 2: Check you have the pre-requisites (see above section)
+# source setup_lcg.sh
 
-# Step 3: Check you have the pre-requisites (see above section)
-# source analysis/setup_lcg.sh
+# Step 3: install the python requirements
+pip install --user -r requirements.txt
 
-# Step 4: install the requirements
-pip install --user --src . -r analysis/requirements_dev.txt
-
-# Step 5: add the chip package to your PYTHONPATH:
-export PYTHONPATH="$PWD/analysis:$PYTHONPATH"
-```
-
-If you're not likely to want to edit fast-carpenter then instead of step 4 you can do:
-```
-pip install --user -r analysis/requirements.txt
+# Step 4: add this package to your PYTHONPATH:
+export PYTHONPATH="$PWD:$PYTHONPATH"
 ```
 
 #### Subsequent running (working from a clean shell)
-Some of the above steps will need to be run each time you log in, in particular step 3 (if it was needed when you first installed things), and step 5.
+Some of the above steps will need to be run each time you log in, in particular step 2 (if it was needed when you first installed things), and step 4.
 If you also have to follow troubleshooting point 2 below, then you'll want to run that each time you log in (unless you do this in your .bashrc file, as recommended).
 
 #### Updating things
-You will from time-to-time want to update things.  To update this code, use git pull:
+To update this code, use git pull:
 ```
-cd CHIP/analysis
 git pull origin master
 ```
 To update the python package dependencies, just add the `--upgrade` option to the pip install command you ran above:
 ```
-cd CHIP
-pip install --user --upgrade --src . -r analysis/requirements_dev.txt
+pip install --user --upgrade -r requirements.txt
 ```
 
 ### Running
 Some explanation of how to use `fast_carpenter` is given in the [README of the package](https://gitlab.cern.ch/fast-hep/public/fast-carpenter/blob/master/README.md).
 
 In essence, to run the first stages of the analysis and produce some dataframes:
-1. Make sure you have a dataset file to specify the input root trees, eg. the one(s) under the [samples](https://gitlab.cern.ch/cms-chip/chip/tree/master/samples) directory.
-2. Create the config file describing what you want to do with the data, eg. the one(s) under the [configs](https://gitlab.cern.ch/cms-chip/chip/tree/master/configs) directory.
+1. Make sure you have a dataset file to specify the input root trees, eg. [file_list.yml](https://gitlab.cern.ch/fast-hep/public/fast_cms_public_tutorial.git/tree/master/file_list.yml).
+2. Create the config file describing what you want to do with the data, eg.[sequence_cfg.yml](https://gitlab.cern.ch/fast-hep/public/fast_cms_public_tutorial.git/tree/master/sequence_cfg.yml). 
 3. Run these through the fast_carpenter command.  Since fast-carpenter is installed using pip, the main executable should be accessible from anywhere, and you can just do:
 ```
-fast_carpenter --outdir output/ samples/WH.yaml configs/explore.yaml
+fast_carpenter --outdir output/ file_list.yml sequence_cfg.yml
 ```
+(If you cannot see the `fast_carpenter` command, you might need to follow the trouble-shooting point 2 below)
+
+Use the built-in help option for `fast_carpenter` to see other available options, eg. using multiprocessing, running on the batch, etc.
 
 ### Other sources of help:
 The README's of the dependency packages should contain more guidance:
