@@ -14,7 +14,6 @@ BasicVars:
     - NIsoMuon: {reduce: count_true, formula: IsoMuon_Idx}
 
 DiMuons: {mask: IsoMuon_Idx}
-#IsoMuons: {iso_var: Muon_Iso, threshold: 0.10}
 
 NumberMuons:
   dataset_col: True
@@ -28,7 +27,7 @@ EventSelection:
     All:
       - NIsoMuon >= 2
       - triggerIsoMu24 == 1
-        #- subentry == 0 and Muon_Pt > 25
+      # - subentry == 0 and Muon_Pt > 25
 
 DiMuonMass:
   dataset_col: True
