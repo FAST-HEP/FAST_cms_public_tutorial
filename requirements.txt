@@ -1,0 +1,8 @@
+scikit-validate
+fast-curator
+fast-carpenter
+# Removed for now, depends on ROOT:
+# fast-datacard
+
+# Doesn't yet exist!!
+# fast-manipulator
