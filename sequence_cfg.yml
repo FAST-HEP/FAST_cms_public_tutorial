@@ -9,7 +9,7 @@ BasicVars:
   variables:
     - Muon_Pt: "sqrt(Muon_Px ** 2 + Muon_Py ** 2)"
     - IsoMuon_Idx: (Muon_Iso / Muon_Pt) < 0.10
-    - NIsoMuon: {reduce: sum, formula: IsoMuon_Idx}
+    - NIsoMuon: {reduce: count_nonzero, formula: IsoMuon_Idx}
 
 DiMuons: {mask: IsoMuon_Idx}
 
@@ -17,6 +17,7 @@ NumberMuons:
   dataset_col: True
   binning:
     - {in: NMuon, out: nMuons}
+    - {in: NIsoMuon, out: nIsoMuons}
   weights: {weighted: EventWeight}
 
 EventSelection:

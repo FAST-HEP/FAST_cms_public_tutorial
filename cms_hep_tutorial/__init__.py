@@ -1,42 +1,6 @@
-from uproot_methods import TLorentzVector, TLorentzVectorArray
+from uproot_methods import TLorentzVectorArray
 import numpy as np
-import pandas as pd
-from fast_carpenter.define import parents2startsstops
 import awkward
-
-class MuonPt():
-    def __init__(self, name, out_dir, collection):
-        self.name = name
-        self.out_dir = out_dir
-        self.collection = collection
-
-    def event(self, chunk):
-        data = chunk.tree.pandas.df(["Muon_Px", "Muon_Py"])
-        pt_numexpr = data.eval("sqrt(Muon_Px ** 2 + Muon_Py ** 2)")
-        pt_numexpr_jagged = awkward.JaggedArray.fromparents(pt_numexpr.index.get_level_values(0).values, pt_numexpr.values)
-
-        chunk.tree.new_variable("test_Pt", pt_numexpr_jagged)
-
-
-class IsoMuons():
-    def __init__(self, name, out_dir, iso_var="Muon_isolation", pt_var="Muon_Pt", threshold=0.2, output="IsoMuon"):
-        self.name = name
-        self.out_dir = out_dir
-        self.iso_var = iso_var
-        self.pt_var = pt_var
-        self.threshold = threshold
-        self.output = output
-        self.branches = {iso_var: "iso", pt_var: "pt"}
-
-    def event(self, chunk):
-        data = chunk.tree.pandas.df(self.branches.keys()).rename(columns=self.branches)
-        iso = data.iso
-        pt = data.pt
-        is_isolation = (iso / pt) < self.threshold
-        is_isolation = awkward.JaggedArray.fromparents(is_isolation.index.get_level_values(0).values, is_isolation.values)
-        n_iso_muon = is_isolation.count_nonzero()
-        chunk.tree.new_variable(self.output + "_Idx", is_isolation)
-        chunk.tree.new_variable("N" + self.output, n_iso_muon)
 
 
 class DiMuonMass():
