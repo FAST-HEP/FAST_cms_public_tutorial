@@ -1,39 +1,39 @@
 datasets:
   - eventtype: data
     files:
-      - /home/ben/CMS/FAST/180701_CMS_HEP_tutorial/inputs/data.root
+      - HEPTutorial/files/data.root
     name: data
     nevents: !!python/long '469384'
   - files:
-      - /home/ben/CMS/FAST/180701_CMS_HEP_tutorial/inputs/dy.root
+      - HEPTutorial/files/dy.root
     name: dy
     nevents: !!python/long '77729'
   - files:
-      - /home/ben/CMS/FAST/180701_CMS_HEP_tutorial/inputs/qcd.root
+      - HEPTutorial/files/qcd.root
     name: qcd
     nevents: !!python/long '142'
   - files:
-      - /home/ben/CMS/FAST/180701_CMS_HEP_tutorial/inputs/single_top.root
+      - HEPTutorial/files/single_top.root
     name: single_top
     nevents: !!python/long '5684'
   - files:
-      - /home/ben/CMS/FAST/180701_CMS_HEP_tutorial/inputs/ttbar.root
+      - HEPTutorial/files/ttbar.root
     name: ttbar
     nevents: !!python/long '36941'
   - files:
-      - /home/ben/CMS/FAST/180701_CMS_HEP_tutorial/inputs/wjets.root
+      - HEPTutorial/files/wjets.root
     name: wjets
     nevents: !!python/long '109737'
   - files:
-      - /home/ben/CMS/FAST/180701_CMS_HEP_tutorial/inputs/ww.root
+      - HEPTutorial/files/ww.root
     name: ww
     nevents: !!python/long '4580'
   - files:
-      - /home/ben/CMS/FAST/180701_CMS_HEP_tutorial/inputs/wz.root
+      - HEPTutorial/files/wz.root
     name: wz
     nevents: !!python/long '3367'
   - files:
-      - /home/ben/CMS/FAST/180701_CMS_HEP_tutorial/inputs/zz.root
+      - HEPTutorial/files/zz.root
     name: zz
     nevents: !!python/long '2421'
 defaults:

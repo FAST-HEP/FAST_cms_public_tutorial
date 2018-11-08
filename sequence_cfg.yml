@@ -1,7 +1,5 @@
 stages:
   - BasicVars: fast_carpenter.define.Define
-    #- PtMuon: cms_hep_tutorial.MuonPt
-    #- IsoMuons: cms_hep_tutorial.IsoMuons
   - DiMuons: cms_hep_tutorial.DiMuonMass
   - NumberMuons: fast_carpenter.summary.BinnedDataframe
   - EventSelection: fast_carpenter.selection.CutFlow
@@ -11,7 +9,7 @@ BasicVars:
   variables:
     - Muon_Pt: "sqrt(Muon_Px ** 2 + Muon_Py ** 2)"
     - IsoMuon_Idx: (Muon_Iso / Muon_Pt) < 0.10
-    - NIsoMuon: {reduce: count_true, formula: IsoMuon_Idx}
+    - NIsoMuon: {reduce: sum, formula: IsoMuon_Idx}
 
 DiMuons: {mask: IsoMuon_Idx}
 

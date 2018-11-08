@@ -106,3 +106,6 @@ ENV/
 *.pcm
 *.root
 .*sw[op]
+
+## Data dir
+HEPTutorial*

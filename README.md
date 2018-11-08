@@ -1,7 +1,7 @@
 # FAST for the CMS HEP Tutorial
 This project demonstrates how to use the FAST approach to implement the [CMS HEP analysis tutorial from 2012](http://ippog.org/resources/2012/cms-hep-tutorial)
 
-## Instructions to set things up:
+## Setting up the code
 ### On Lxplus or most HEP servers:
 You need a relatively recent version of python and pip to use this project, ie.
 around python > 2.7.13 and pip > 8.  On most laptops that might already be the case,
@@ -44,7 +44,15 @@ To update the python package dependencies, just add the `--upgrade` option to th
 pip install --user --upgrade -r requirements.txt
 ```
 
-### Running
+## Getting the data:
+The dataset file, `file_list.yml` expects you to put the data inside the directory where you cloned this repository, so do:
+```
+cd fast_cms_public_tutorial
+wget ippog.org/sites/ippog.web.cern.ch/files/HEPTutorial_0.tar
+tar -xf HEPTutorial_0.tar HEPTutorial/files/
+```
+
+## Running
 Some explanation of how to use `fast_carpenter` is given in the [README of the package](https://gitlab.cern.ch/fast-hep/public/fast-carpenter/blob/master/README.md).
 
 In essence, to run the first stages of the analysis and produce some dataframes:
@@ -55,6 +63,7 @@ In essence, to run the first stages of the analysis and produce some dataframes:
 fast_carpenter --outdir output/ file_list.yml sequence_cfg.yml
 ```
 (If you cannot see the `fast_carpenter` command, you might need to follow the trouble-shooting point 2 below)
+Note that (currently) `file_list.yml` contains relative paths to the data, so you need to run the command from the directory where you untarred the dataset.
 
 Use the built-in help option for `fast_carpenter` to see other available options, eg. using multiprocessing, running on the batch, etc.
 
