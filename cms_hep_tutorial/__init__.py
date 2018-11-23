@@ -2,15 +2,18 @@ from uproot_methods import TLorentzVectorArray
 import numpy as np
 
 
-class DiMuonMass():
-    def __init__(self, name, out_dir, mask=None, collection="Muon", out_var="DiIsoMuon"):
+class DiObjectMass():
+    def __init__(self, name, out_dir, collection="Muon", mask=None, out_var=None):
         self.name = name
         self.out_dir = out_dir
         self.mask = mask
         self.collection = collection
 
         self.branches = [self.collection + "_" + var for var in ["Px", "Py", "Pz", "E"]]
-        self.out_var = out_var + "_Mass"
+        if out_var:
+            self.out_var = out_var
+        else:
+            self.out_var = "Di{}_Mass".format(collection)
 
     def event(self, chunk):
         # Get the data as a pandas dataframe

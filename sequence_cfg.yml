@@ -1,6 +1,6 @@
 stages:
   - BasicVars: fast_carpenter.define.Define
-  - DiMuons: cms_hep_tutorial.DiMuonMass
+  - DiMuons: cms_hep_tutorial.DiObjectMass
   - NumberMuons: fast_carpenter.summary.BinnedDataframe
   - EventSelection: fast_carpenter.selection.CutFlow
   - DiMuonMass: fast_carpenter.summary.BinnedDataframe
@@ -31,5 +31,5 @@ EventSelection:
 DiMuonMass:
   dataset_col: true
   binning:
-    - {in: DiIsoMuon_Mass, out: dimu_mass, bins: {low: 60, high: 120, nbins: 60}}
+    - {in: DiMuon_Mass, out: dimu_mass, bins: {low: 60, high: 120, nbins: 60}}
   weights: {weighted: EventWeight}
