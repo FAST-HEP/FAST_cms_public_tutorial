@@ -14,7 +14,7 @@ BasicVars:
 DiMuons: {mask: IsoMuon_Idx}
 
 NumberMuons:
-  dataset_col: True
+  dataset_col: true
   binning:
     - {in: NMuon, out: nMuons}
     - {in: NIsoMuon, out: nIsoMuons}
@@ -26,10 +26,10 @@ EventSelection:
     All:
       - NIsoMuon >= 2
       - triggerIsoMu24 == 1
-      # - subentry == 0 and Muon_Pt > 25
+      - {reduce: 0, formula: Muon_Pt > 25}
 
 DiMuonMass:
-  dataset_col: True
+  dataset_col: true
   binning:
-      - {in: DiIsoMuon_Mass, out: dimu_mass, bins: {low: 60, high: 120, nbins: 60}}
+    - {in: DiIsoMuon_Mass, out: dimu_mass, bins: {low: 60, high: 120, nbins: 60}}
   weights: {weighted: EventWeight}

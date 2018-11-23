@@ -1,6 +1,5 @@
 from uproot_methods import TLorentzVectorArray
 import numpy as np
-import awkward
 
 
 class DiMuonMass():
@@ -10,38 +9,32 @@ class DiMuonMass():
         self.mask = mask
         self.collection = collection
 
-        self.branches = {self.collection + "_" + var: var for var in ["Px", "Py", "Pz", "E"]}
+        self.branches = [self.collection + "_" + var for var in ["Px", "Py", "Pz", "E"]]
         self.out_var = out_var + "_Mass"
 
     def event(self, chunk):
         # Get the data as a pandas dataframe
-        data = chunk.tree.pandas.df(self.branches.keys())
-
-        # Need this later on...
-        first_event = data.index.get_level_values(0).values[0]
+        px, py, pz, energy = chunk.tree.arrays(self.branches, outputtype=tuple)
 
         # Rename the branches so they're easier to work with here
-        data.rename(columns=self.branches, inplace=True)
         if self.mask:
-            mask = chunk.tree.pandas.df(self.mask)
-            mask = mask[mask[self.mask]]
-            data = mask.merge(data, how="left", left_index=True, right_index=True)
+            mask = chunk.tree.array(self.mask)
+            px = px[mask]
+            py = py[mask]
+            pz = pz[mask]
+            energy = energy[mask]
 
         # Find the second object in the event (which are sorted by Pt)
-        object2 = data.groupby(level=0).nth(1)
-        have_two_objects = object2.index
-        # If there was a second object, get the first object
-        object1 = data.loc[have_two_objects].groupby(level=0).nth(0)
+        has_two_obj = px.counts > 1
 
         # Calculate the invariant mass
-        p4_1 = TLorentzVectorArray(object1.Px, object1.Py, object1.Pz, object1.E)
-        p4_2 = TLorentzVectorArray(object2.Px, object2.Py, object2.Pz, object2.E)
-        di_object = p4_1 + p4_2
+        p4_0 = TLorentzVectorArray(px[has_two_obj, 0], py[has_two_obj, 0], pz[has_two_obj, 0], energy[has_two_obj, 0])
+        p4_1 = TLorentzVectorArray(px[has_two_obj, 1], py[has_two_obj, 1], pz[has_two_obj, 1], energy[has_two_obj, 1])
+        di_object = p4_0 + p4_1
 
         # insert nans for events that have fewer than 2 objects
-        masses = np.ones(len(chunk.tree)) * np.nan
-        have_two_objects -= first_event
-        masses[have_two_objects] = di_object.mass
+        masses = np.full(len(chunk.tree), np.nan)
+        masses[has_two_obj] = di_object.mass
 
         # Add this variable to the tree
         chunk.tree.new_variable(self.out_var, masses)
