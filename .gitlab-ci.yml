@@ -56,7 +56,7 @@ fast_plotter_py2:
       - fast_carpenter_py2
   artifacts:
     paths:
-        - plotter
+        - pipeline/plotter
     expire_in: 2 days
 
     #fast_curator_py3:
@@ -67,7 +67,7 @@ fast_plotter_py2:
     #      - get_input_data
     #  artifacts:
     #    paths:
-    #        - curator
+    #        - pipeline/curator
     #    expire_in: 2 days
     #
     #fast_carpenter_py3:
@@ -78,7 +78,7 @@ fast_plotter_py2:
     #      - fast_curator_py2
     #  artifacts:
     #    paths:
-    #        - carpenter
+    #        - pipeline/carpenter
     #    expire_in: 2 days
     #
     #fast_plotter_py3:
@@ -89,5 +89,5 @@ fast_plotter_py2:
     #      - fast_carpenter_py2
     #  artifacts:
     #    paths:
-    #        - plotter
+    #        - pipeline/plotter
     #    expire_in: 2 days
