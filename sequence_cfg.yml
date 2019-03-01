@@ -1,18 +1,35 @@
+# Define the sequence of stages to pass data through
+# Keys name the stage
+# Values are a python-importable class
 stages:
+    # Just defines new variables
   - BasicVars: fast_carpenter.define.Define
+    # A custom class to form the invariant mass of a two-object system
   - DiMuons: cms_hep_tutorial.DiObjectMass
+    # Filled a binned dataframe
   - NumberMuons: fast_carpenter.summary.BinnedDataframe
+    # Select events by applying cuts
   - EventSelection: fast_carpenter.selection.CutFlow
+    # Fill another binned dataframe
   - DiMuonMass: fast_carpenter.summary.BinnedDataframe
 
+# Define some additional variables not provided in the tree
 BasicVars:
   variables:
     - Muon_Pt: "sqrt(Muon_Px ** 2 + Muon_Py ** 2)"
     - IsoMuon_Idx: (Muon_Iso / Muon_Pt) < 0.10
+    # This next variable will create a single number for each event,
+    # using a set of inputs whose length varies for each event
     - NIsoMuon: {reduce: count_nonzero, formula: IsoMuon_Idx}
 
+# The custom module specific to this analysis, only takes an optional parameter
 DiMuons: {mask: IsoMuon_Idx}
 
+# Make a binned dataframe with a column for:
+#  - the dataset name
+#  - the number of muons
+#  - the number of muons considered "isolated"
+#  and weight everything using the EventWeight variable
 NumberMuons:
   dataset_col: true
   binning:
@@ -20,6 +37,7 @@ NumberMuons:
     - {in: NIsoMuon, out: nIsoMuons}
   weights: {weighted: EventWeight}
 
+# Select events for subsequent stages that only pass all the requirements in the list
 EventSelection:
   weights: {weighted: EventWeight}
   selection:
@@ -28,6 +46,7 @@ EventSelection:
       - triggerIsoMu24 == 1
       - {reduce: 0, formula: Muon_Pt > 25}
 
+# Make another binned dataframe containing the dataset and a binning of the DiMuon_mass variable
 DiMuonMass:
   dataset_col: true
   binning:
