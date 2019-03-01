@@ -1,0 +1,25 @@
+weights: [weighted]
+yscale: linear
+ylabel: Number of Events
+legend:
+    ncol: 4
+    loc: 'upper right'
+limits:
+    y: [1e-2, 1e7]
+
+annotations:
+    - text: CMS
+      position: [0, 1.03]
+      fontweight: bold
+      fontsize: xx-large
+    - text: Simulation
+      fontsize: x-large
+      fontstyle: italic
+      position: [0.13, 1.03]
+    - text: '$\sqrt{s} = 7$ TeV'
+      position: [1, 1.03]
+      horizontalalignment: right
+      fontsize: large
+
+bin_variable_replacements:
+    dimu_mass: 'Di-muon Mass, $M_{\mu\mu}$ [GeV/c$^{2}]$'
