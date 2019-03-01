@@ -4,7 +4,9 @@ before_script:
     - pip install -r requirements.txt
     - export PYTHONPATH=$PWD
     - cd pipeline
-    - patch ~/.local/lib/python2.7/site-packages/atuproot/atuproot_main.py atuproot.patch
+    - cd $(dirname $(python -c "from __future__ import print_function;import atuproot;print(atuproot.atuproot_main.__file__)"))
+    - patch -p2 < $OLDPWD/atuproot.patch
+    - cd -
 
 stages:
   - get_input_data
@@ -16,7 +18,9 @@ stages:
 get_input_data:
   stage: get_input_data
   script:
+    - ls -R
     - make input_files
+    - ls -R
   artifacts:
     paths:
         - input_files
@@ -25,7 +29,10 @@ get_input_data:
 fast_curator_py2:
   image: python:2.7
   stage: run_fast_curator
-  script: make curator
+  script: 
+      - ls -R
+      - make curator
+      - ls -R
   dependencies:
       - get_input_data
   artifacts:
@@ -36,7 +43,10 @@ fast_curator_py2:
 fast_carpenter_py2:
   image: python:2.7
   stage: run_fast_carpenter
-  script: make carpenter
+  script: 
+      - ls -R
+      - make carpenter
+      - ls -R
   dependencies:
       - fast_curator_py2
   artifacts:
