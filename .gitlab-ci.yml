@@ -21,10 +21,10 @@ get_input_data:
     - make input_files
   artifacts:
     paths:
-        - pipeline/input_files
+        - pipeline
     expire_in: 2 days
 
-fast_curator_py2:
+fast_curator_py2: &FAST_CURATOR
   image: python:2.7
   stage: run_fast_curator
   script: 
@@ -33,10 +33,10 @@ fast_curator_py2:
       - get_input_data
   artifacts:
     paths:
-        - pipeline/curator
+        - pipeline
     expire_in: 2 days
 
-fast_carpenter_py2:
+fast_carpenter_py2: &FAST_CARPENTER
   image: python:2.7
   stage: run_fast_carpenter
   script: 
@@ -45,10 +45,10 @@ fast_carpenter_py2:
       - fast_curator_py2
   artifacts:
     paths:
-        - pipeline/carpenter
+        - pipeline
     expire_in: 2 days
 
-fast_plotter_py2:
+fast_plotter_py2: &FAST_PLOTTER
   image: python:2.7
   stage: run_fast_plotter
   script: make plotter
@@ -56,38 +56,22 @@ fast_plotter_py2:
       - fast_carpenter_py2
   artifacts:
     paths:
-        - pipeline/plotter
+        - pipeline
     expire_in: 2 days
 
-    #fast_curator_py3:
-    #  image: python:3.7
-    #  stage: run_fast_curator
-    #  script: make curator
-    #  dependencies:
-    #      - get_input_data
-    #  artifacts:
-    #    paths:
-    #        - pipeline/curator
-    #    expire_in: 2 days
-    #
-    #fast_carpenter_py3:
-    #  image: python:3.7
-    #  stage: run_fast_carpenter
-    #  script: make carpenter
-    #  dependencies:
-    #      - fast_curator_py2
-    #  artifacts:
-    #    paths:
-    #        - pipeline/carpenter
-    #    expire_in: 2 days
-    #
-    #fast_plotter_py3:
-    #  image: python:3.7
-    #  stage: run_fast_plotter
-    #  script: make plotter
-    #  dependencies:
-    #      - fast_carpenter_py2
-    #  artifacts:
-    #    paths:
-    #        - pipeline/plotter
-    #    expire_in: 2 days
+fast_curator_py3:
+  <<: *FAST_CURATOR
+  image: python:3.7
+  allow_failure: True
+
+fast_carpenter_py3:
+  <<: *FAST_CARPENTER
+  image: python:3.7
+  dependencies:
+      - fast_curator_py3
+
+fast_plotter_py3:
+  <<: *FAST_PLOTTER
+  image: python:3.7
+  dependencies:
+      - fast_carpenter_py3
