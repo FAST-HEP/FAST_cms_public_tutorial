@@ -69,6 +69,7 @@ fast_carpenter_py3:
   image: python:3.7
   dependencies:
       - fast_curator_py3
+  allow_failure: True
 
 fast_plotter_py3:
   <<: *FAST_PLOTTER
