@@ -1,0 +1,53 @@
+image: python
+
+before_script:
+    - pip install -r requirements.txt
+    - export PYTHONPATH=$PWD
+    - cd pipeline
+
+stages:
+  - get_input_data
+  - run_fast_curator
+  - run_fast_carpenter
+  - run_fast_plotter
+  - deploy
+
+get_input_data:
+  stage: get_input_data
+  script:
+    - make input_files
+  artifacts:
+    paths:
+    - input_files
+    expire_in: 2 days
+
+fast_curator_py2:
+  image: python:2.7
+  stage: run_fast_curator
+  script: make curator
+
+fast_carpenter_py2:
+  image: python:2.7
+  stage: run_fast_carpenter
+  script: make carpenter
+
+fast_plotter_py2:
+  image: python:2.7
+  stage: run_fast_plotter
+  script: make plotter
+
+fast_curator_py3:
+  image: python:3.7
+  stage: run_fast_curator
+  script: make curator
+
+fast_carpenter_py3:
+  image: python:3.7
+  stage: run_fast_carpenter
+  script: make carpenter
+
+fast_plotter_py3:
+  image: python:3.7
+  stage: run_fast_plotter
+  script: make plotter
+
