@@ -1,8 +1,6 @@
-scikit-validate
 fast-curator
 fast-carpenter
-# Removed for now, depends on ROOT:
-# fast-datacard
+fast-plotter
 
-# Doesn't yet exist!!
-# fast-manipulator
+# fast-datacard
+# scikit-validate
