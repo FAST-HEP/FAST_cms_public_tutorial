@@ -18,40 +18,34 @@ stages:
 get_input_data:
   stage: get_input_data
   script:
-    - ls -R
     - make input_files
-    - ls -R
   artifacts:
     paths:
-        - input_files
+        - pipeline/input_files
     expire_in: 2 days
 
 fast_curator_py2:
   image: python:2.7
   stage: run_fast_curator
   script: 
-      - ls -R
       - make curator
-      - ls -R
   dependencies:
       - get_input_data
   artifacts:
     paths:
-        - curator
+        - pipeline/curator
     expire_in: 2 days
 
 fast_carpenter_py2:
   image: python:2.7
   stage: run_fast_carpenter
   script: 
-      - ls -R
       - make carpenter
-      - ls -R
   dependencies:
       - fast_curator_py2
   artifacts:
     paths:
-        - carpenter
+        - pipeline/carpenter
     expire_in: 2 days
 
 fast_plotter_py2:
