@@ -5,7 +5,7 @@ plotter: carpenter
 
 carpenter: curator
 	@echo -e "\n==== Running fast-carpenter"
-	fast_carpenter --outdir carpenter --ncore 4 curator/file_list.yml ../sequence_cfg.yml || true
+	fast_carpenter --outdir carpenter --ncore 4 curator/file_list.yml ../sequence_cfg.yml
 	touch carpenter
 
 curator: input_files
