@@ -19,11 +19,19 @@ export PYTHONPATH="$PWD:$PYTHONPATH"
 
 ### Run things
 A simple demo of the commands needed to run this analysis can be found in the pipeline directory.
+Running this will print out what is going on, but it's worth looking at the Makefile contained in there as well.
 ```bash
 cd pipeline
+# 1. Get the input data
 make input_files
+
+# 2. Prepare a dataset config file
 make curator
+
+# 3. Process the data into tables
 make carpenter
+
+# 4. Turn those tables into plots
 make plotter
 ```
 
