@@ -7,9 +7,9 @@ before_script:
 
 stages:
   - get_input_data
-  - run_fast_curator
-  - run_fast_carpenter
-  - run_fast_plotter
+  - configure_datasets
+  - process_trees
+  - make_plots
   - deploy
 
 get_input_data:
@@ -23,7 +23,7 @@ get_input_data:
 
 fast_curator_py2: &FAST_CURATOR
   image: python:2.7
-  stage: run_fast_curator
+  stage: configure_datasets
   script: 
       - make curator
   dependencies:
@@ -35,7 +35,7 @@ fast_curator_py2: &FAST_CURATOR
 
 fast_carpenter_py2: &FAST_CARPENTER
   image: python:2.7
-  stage: run_fast_carpenter
+  stage: make_plots
   script: 
       - make carpenter
   dependencies:
