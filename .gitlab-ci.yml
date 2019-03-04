@@ -47,7 +47,7 @@ fast_carpenter_py2: &FAST_CARPENTER
 
 fast_plotter_py2: &FAST_PLOTTER
   image: python:2.7
-  stage: run_fast_plotter
+  stage: make_plots
   script: make plotter
   dependencies:
       - fast_carpenter_py2
