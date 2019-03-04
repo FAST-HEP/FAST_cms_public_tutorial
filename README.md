@@ -35,7 +35,7 @@ make carpenter
 make plotter
 ```
 
-## Slow-start:
+## More complete instructions
 ### Installing
 ```
 # Step 1: Clone this repository
