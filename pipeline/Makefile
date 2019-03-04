@@ -1,11 +1,11 @@
 plotter: carpenter 
 	@echo -e "\n==== Running fast-plotter"
 	mkdir -p plotter
-	time fast_plotter -y log -c ../plot_config.yml -o plotter/ carpenter/tbl_*.csv
+	fast_plotter -y log -c ../plot_config.yml -o plotter/ carpenter/tbl_*.csv
 
 carpenter: curator
 	@echo -e "\n==== Running fast-carpenter"
-	time fast_carpenter --outdir carpenter curator/file_list.yml ../sequence_cfg.yml || true
+	fast_carpenter --outdir carpenter --ncore 4 curator/file_list.yml ../sequence_cfg.yml || true
 	touch carpenter
 
 curator: input_files
