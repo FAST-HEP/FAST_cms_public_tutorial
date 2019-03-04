@@ -21,7 +21,7 @@ export PYTHONPATH="$PWD:$PYTHONPATH"
 A simple demo of the commands needed to run this analysis can be found in the pipeline directory.
 ```bash
 cd pipeline
-make input_data
+make input_files
 make curator
 make carpenter
 make plotter
