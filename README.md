@@ -1,34 +1,69 @@
 # FAST for the CMS HEP Tutorial
 This project demonstrates how to use the FAST approach to implement the [CMS HEP analysis tutorial from 2012](http://ippog.org/resources/2012/cms-hep-tutorial)
-
-## Setting up the code
-### On Lxplus or most HEP servers:
-You need a relatively recent version of python and pip to use this project, ie.
-around python > 2.7.13 and pip > 8.  On most laptops that might already be the case,
-but on CERN's lxplus, Bristol's Soolin, and Imperial lx machines, etc, you should use the script contained in this repository to set these up:
-```
-source setup_lcg.sh
-```
-This will setup the main dependencies (like python, xrootd, etc) using versions which have been compiled and posted to CVMFS.
-You'll have to run that every time you log in since it sets up the python version.
-
-If you work on a laptop or any system where the default python and pip versions are recent, then you shouldnt need to do this, just skip to the next section.
-
-### Installing
-```
+### Quick-start
+Install things:
+```bash
 # Step 1: Clone this repository
-git clone ssh://git@gitlab.cern.ch:7999/fast-hep/public/fast_cms_public_tutorial.git
+git clone https://gitlab.cern.ch/fast-hep/public/fast_cms_public_tutorial.git
 cd fast_cms_public_tutorial
 
-# Step 2: Check you have the pre-requisites (see above section)
+# Step 2: Check you have the pre-requisites (see following section)
 # source setup_lcg.sh
 
-# Step 3: install the python requirements
-pip install --user -r requirements.txt
+# Step 3: install the python requirements (possibly add --user)
+pip install -r requirements.txt
 
 # Step 4: add this package to your PYTHONPATH:
 export PYTHONPATH="$PWD:$PYTHONPATH"
 ```
+
+### Run things
+A simple demo of the commands needed to run this analysis can be found in the pipeline directory.
+Running this will print out what is going on, but it's worth looking at the Makefile contained in there as well.
+```bash
+cd pipeline
+# 1. Get the input data
+make input_files
+
+# 2. Prepare a dataset config file
+make curator
+
+# 3. Process the data into tables
+make carpenter
+
+# 4. Turn those tables into plots
+make plotter
+```
+
+## More complete instructions
+### Installing
+```
+# Step 1: Clone this repository
+git clone https://gitlab.cern.ch/fast-hep/public/fast_cms_public_tutorial.git
+cd fast_cms_public_tutorial
+
+# Step 2: Check you have the pre-requisites (see following section)
+# source setup_lcg.sh
+
+# Step 3: install the python requirements
+pip install -r requirements.txt
+
+# Step 4: add this package to your PYTHONPATH:
+export PYTHONPATH="$PWD:$PYTHONPATH"
+```
+
+#### On Lxplus or other HEP clusters:
+You need a relatively recent version of python and pip to use this project, ie.
+around python > 2.7.13 and pip > 8.  On most laptops that might already be the case,
+but on CERN's lxplus, and likely other Centos 7 machines (at least on those I've tried), you might want to use the script contained in this repository to set these up:
+```
+source setup_lcg.sh
+```
+This will create the main dependencies (like python, xrootd, etc) using versions which have been compiled and posted to CVMFS.
+You'll have to run that every time you log in since it sets up the python version.
+
+If you work on a laptop or any system where the default python and pip versions are recent, then you shouldnt need to do this, just skip to the next section.
+
 
 #### Subsequent running (working from a clean shell)
 Some of the above steps will need to be run each time you log in, in particular step 2 (if it was needed when you first installed things), and step 4.
