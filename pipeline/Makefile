@@ -1,11 +1,12 @@
+execute_wrapper?=
 plotter: carpenter 
 	@echo -e "\n==== Running fast-plotter"
 	mkdir -p plotter
-	fast_plotter -y log -c ../plot_config.yml -o plotter/ carpenter/tbl_*.csv
+	$(execute_wrapper) fast_plotter -y log -c ../plot_config.yml -o plotter/ carpenter/tbl_*.csv
 
 carpenter: curator
 	@echo -e "\n==== Running fast-carpenter"
-	fast_carpenter --outdir carpenter --ncore 4 curator/file_list.yml ../sequence_cfg.yml
+	$(execute_wrapper) fast_carpenter --outdir carpenter --ncores 4 curator/file_list.yml ../sequence_cfg.yml
 	touch carpenter
 
 curator: input_files
