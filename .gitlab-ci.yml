@@ -2,7 +2,6 @@ image: python
 
 before_script:
     - pip install -r requirements.txt
-    - export SPECIFIC_PIP_PACKAGES="https://gitlab.cern.ch/fast-hep/public/fast-carpenter.git@BK_bump_atsge_atuproot_versions#egg=fast-carpenter"
     - '[ -n "$SPECIFIC_PIP_PACKAGES" ] && [[ "$SPECIFIC_PIP_PACKAGES" =~ ^[^\;\&\|]*$ ]] && pip install $SPECIFIC_PIP_PACKAGES'
     - export PYTHONPATH=$PWD
     - cd pipeline
