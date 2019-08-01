@@ -1,11 +1,25 @@
+data: 'Data'
 weights: [weighted]
 yscale: linear
+
 ylabel: Number of Events
+
 legend:
     ncol: 4
     loc: 'upper right'
+
 limits:
     y: [1e-2, 1e7]
+
+colourmap:
+    map: tab20
+    colour_stop: 0.04
+    colour_start: 0.96
+    # n_colors: 10
+
+figsize: [6, 5]
+
+project_1d: True
 
 annotations:
     - text: CMS
@@ -23,3 +37,26 @@ annotations:
 
 bin_variable_replacements:
     dimu_mass: 'Di-muon Mass, $M_{\mu\mu}$ [GeV/c$^{2}]$'
+
+value_replacements:
+    dataset:
+        data: Data
+        dy: DY
+        qcd: QCD
+        single_top: single Top
+        ttbar: TTbar
+        wjets: Wjets
+        ww: WW
+        wz: WZ
+        zz: ZZ
+
+dataset_order:
+   - TTbar
+   - Wjets
+   - DY
+   - WW
+   - WZ
+   - ZZ
+   - QCD
+   - single Top
+   - Data
