@@ -1,7 +1,6 @@
 image: python:3.7
 
 before_script:
-    - pip install numpy
     - pip install -r requirements.txt
     - '[ -n "$SPECIFIC_PIP_PACKAGES" ] && [[ "$SPECIFIC_PIP_PACKAGES" =~ ^[^\;\&\|]*$ ]] && pip install $SPECIFIC_PIP_PACKAGES'
     - export PYTHONPATH=$PWD
