@@ -3,39 +3,39 @@ datasets:
     files:
       - HEPTutorial/files/data.root
     name: data
-    nevents: !!python/long '469384'
+    nevents: !!int '469384'
   - files:
       - HEPTutorial/files/dy.root
     name: dy
-    nevents: !!python/long '77729'
+    nevents: !!int '77729'
   - files:
       - HEPTutorial/files/qcd.root
     name: qcd
-    nevents: !!python/long '142'
+    nevents: !!int '142'
   - files:
       - HEPTutorial/files/single_top.root
     name: single_top
-    nevents: !!python/long '5684'
+    nevents: !!int '5684'
   - files:
       - HEPTutorial/files/ttbar.root
     name: ttbar
-    nevents: !!python/long '36941'
+    nevents: !!int '36941'
   - files:
       - HEPTutorial/files/wjets.root
     name: wjets
-    nevents: !!python/long '109737'
+    nevents: !!int '109737'
   - files:
       - HEPTutorial/files/ww.root
     name: ww
-    nevents: !!python/long '4580'
+    nevents: !!int '4580'
   - files:
       - HEPTutorial/files/wz.root
     name: wz
-    nevents: !!python/long '3367'
+    nevents: !!int '3367'
   - files:
       - HEPTutorial/files/zz.root
     name: zz
-    nevents: !!python/long '2421'
+    nevents: !!int '2421'
 defaults:
   eventtype: mc
   nfiles: 1
