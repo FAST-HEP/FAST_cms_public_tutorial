@@ -1,3 +1,6 @@
+plugins:
+  data_import: "uproot4"
+
 # Define the sequence of stages to pass data through
 # Keys name the stage
 # Values are a python-importable class
