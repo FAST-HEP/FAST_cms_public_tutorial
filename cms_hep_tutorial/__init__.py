@@ -1,5 +1,5 @@
 import awkward as ak
-from uproot3_methods import TLorentzVectorArray
+import vector
 import numpy as np
 
 
@@ -32,8 +32,18 @@ class DiObjectMass():
         has_two_obj = px.counts > 1
 
         # Calculate the invariant mass
-        p4_0 = TLorentzVectorArray(px[has_two_obj, 0], py[has_two_obj, 0], pz[has_two_obj, 0], energy[has_two_obj, 0])
-        p4_1 = TLorentzVectorArray(px[has_two_obj, 1], py[has_two_obj, 1], pz[has_two_obj, 1], energy[has_two_obj, 1])
+        p4_0 = vector.array({
+            "x": px[has_two_obj, 0],
+            "y": py[has_two_obj, 0],
+            "z": pz[has_two_obj, 0],
+            "t": energy[has_two_obj, 0],
+        })
+        p4_1 = vector.array({
+            "x": px[has_two_obj, 1],
+            "y": py[has_two_obj, 1],
+            "z": pz[has_two_obj, 1],
+            "t": energy[has_two_obj, 1],
+        })
         di_object = p4_0 + p4_1
 
         # insert nans for events that have fewer than 2 objects
