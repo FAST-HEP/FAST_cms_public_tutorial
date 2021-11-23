@@ -83,7 +83,7 @@ pip install --user --upgrade -r requirements.txt
 The dataset file, `file_list.yml` expects you to put the data inside the directory where you cloned this repository, so do:
 ```
 cd fast_cms_public_tutorial
-wget ippog.org/sites/ippog.web.cern.ch/files/HEPTutorial_0.tar
+wget http://opendata.cern.ch/record/212/files/HEPTutorial_0.tar
 tar -xf HEPTutorial_0.tar HEPTutorial/files/
 ```
 
