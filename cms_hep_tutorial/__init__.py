@@ -1,4 +1,5 @@
-from uproot_methods import TLorentzVectorArray
+import awkward as ak
+from uproot3_methods import TLorentzVectorArray
 import numpy as np
 
 
