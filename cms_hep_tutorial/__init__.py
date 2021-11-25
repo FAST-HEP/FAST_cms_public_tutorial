@@ -48,7 +48,7 @@ class DiObjectMass():
 
         # insert nans for events that have fewer than 2 objects
         masses = np.full(len(chunk.tree), np.nan)
-        masses[has_two_obj] = di_object.mass
+        masses[has_two_obj] = di_object.tau
 
         # Add this variable to the tree
         chunk.tree.new_variable(self.out_var, masses)
