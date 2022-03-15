@@ -1,6 +1,6 @@
 fast-curator
 fast-carpenter
 fast-plotter
-
+vector
 # fast-datacard
 # scikit-validate
