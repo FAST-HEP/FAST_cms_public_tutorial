@@ -2,6 +2,7 @@ import awkward as ak
 import vector
 import numpy as np
 
+from fast_carpenter.tree_adapter import ArrayMethods
 
 class DiObjectMass():
     def __init__(self, name, out_dir, collection="Muon", mask=None, out_var=None):
@@ -29,20 +30,20 @@ class DiObjectMass():
             energy = energy[mask]
 
         # Find the second object in the event (which are sorted by Pt)
-        has_two_obj = px.counts > 1
+        has_two_obj = ArrayMethods.counts(px) > 1
 
         # Calculate the invariant mass
         p4_0 = vector.array({
-            "x": px[has_two_obj, 0],
-            "y": py[has_two_obj, 0],
-            "z": pz[has_two_obj, 0],
-            "t": energy[has_two_obj, 0],
+            "x": px[has_two_obj][:, 0],
+            "y": py[has_two_obj][:, 0],
+            "z": pz[has_two_obj][:, 0],
+            "t": energy[has_two_obj][:, 0],
         })
         p4_1 = vector.array({
-            "x": px[has_two_obj, 1],
-            "y": py[has_two_obj, 1],
-            "z": pz[has_two_obj, 1],
-            "t": energy[has_two_obj, 1],
+            "x": px[has_two_obj][:, 1],
+            "y": py[has_two_obj][:, 1],
+            "z": pz[has_two_obj][:, 1],
+            "t": energy[has_two_obj][:, 1],
         })
         di_object = p4_0 + p4_1
 
