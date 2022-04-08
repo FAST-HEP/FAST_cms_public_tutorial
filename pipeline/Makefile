@@ -1,5 +1,5 @@
 execute_wrapper?=
-plotter: carpenter 
+plotter: carpenter
 	@echo -e "\n==== Running fast-plotter"
 	mkdir -p plotter
 	$(execute_wrapper) fast_plotter -y log -c ../plot_config.yml -o plotter/ carpenter/tbl_*.csv
@@ -27,7 +27,7 @@ input_files:
 	@echo -e "\n==== Downloading input files"
 	mkdir input_files &&\
 	cd input_files  && \
-	wget ippog.org/sites/ippog.web.cern.ch/files/HEPTutorial_0.tar &&\
+	wget http://opendata.cern.ch/record/212/files/HEPTutorial_0.tar &&\
 	tar -xf HEPTutorial_0.tar HEPTutorial/files/
 
 clean: clean-plotter clean-carpenter clean-curator clean-input_files
