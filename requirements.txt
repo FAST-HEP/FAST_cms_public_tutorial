@@ -1,5 +1,5 @@
-fast-curator
-fast-carpenter
+fast-curator>=0.8.1
+fast-carpenter>=0.21.0
 fast-plotter
 vector
 # fast-datacard
