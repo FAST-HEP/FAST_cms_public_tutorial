@@ -1,8 +1,8 @@
-import awkward as ak
 import vector
 import numpy as np
 
 from fast_carpenter.tree_adapter import ArrayMethods
+
 
 class DiObjectMass():
     def __init__(self, name, out_dir, collection="Muon", mask=None, out_var=None):
